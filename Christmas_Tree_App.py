@@ -11,7 +11,7 @@ Tree = list(open(r'Assets/Modified_Tree.txt', 'r').read().rstrip())
 lock = threading.Lock()
 
 def ColourPattern(colour):
-    list_of_colours = [f'\033[91m█\033[0m', f'\033[92m█\033[0m', f'\033[94m█\033[0m', f'\033[93m█\033[0m']
+    #list_of_colours = [f'\033[91m█\033[0m', f'\033[92m█\033[0m', f'\033[94m█\033[0m', f'\033[93m█\033[0m']
     if colour == 'Red':
         return f'\033[91m█\033[0m'
     if colour == 'Green':
@@ -20,8 +20,8 @@ def ColourPattern(colour):
         return f'\033[94m█\033[0m'
     if colour == 'Yellow':
         return f'\033[93m█\033[0m'
-    if colour == 'Other':
-        return (random.choice(list_of_colours))
+    #if colour == 'Other':
+        #return (random.choice(list_of_colours))
 
 def LightUp(colour, indices):
     Off = True
@@ -36,14 +36,14 @@ def LightUp(colour, indices):
             lock.release()
 
             Off = not Off
-            time.sleep(random.uniform(0.00001, 0.00003))
+            time.sleep(random.uniform(0.05, 0.1))
 
 
 Red = []
 Green = []
 Blue = []
 Yellow = []
-Other = []
+#Other = []
 
 for i, c in enumerate(Tree):
     if c == 'R':
@@ -58,19 +58,19 @@ for i, c in enumerate(Tree):
     if c == 'Y':
         Yellow.append(i)
         Tree[i] = '█'
-    if c == '$':
-        Other.append(i)
-        Tree[i] = '█'
+    #if c == '$':
+        #Other.append(i)
+        #Tree[i] = '█'
 
 
 Tr = threading.Thread(target=LightUp, args=('Red', Red))
 Tg = threading.Thread(target=LightUp, args=('Green', Green))
 Tb = threading.Thread(target=LightUp, args=('Blue', Blue))
 Ty = threading.Thread(target=LightUp, args=('Yellow', Yellow))
-To = threading.Thread(target=LightUp, args=('Other', Other))
+#To = threading.Thread(target=LightUp, args=('Other', Other))
 
-for T in [Tr, Tg, Tb, Ty, To]:
+for T in [Tr, Tg, Tb, Ty]:
     T.start()
 
-for T in [Tr, Tg, Tb, Ty, To]:
+for T in [Tr, Tg, Tb, Ty]:
     T.join()
