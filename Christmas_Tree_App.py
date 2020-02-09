@@ -36,7 +36,7 @@ def LightUp(colour, indices):
             lock.release()
 
             Off = not Off
-            time.sleep(random.uniform(0.05, 0.1))
+            time.sleep(random.uniform(0.4, 0.5))
 
 
 Red = []
